@@ -1,6 +1,7 @@
 package me.ci;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class MovieTracker extends JFrame{
 	public static void main(String[] args){
@@ -8,10 +9,14 @@ public class MovieTracker extends JFrame{
 	}
 	private MovieExplorer movieExplorer;
 	public MovieTracker(){
-		init();
-		addComponents();
-		setVisible(true);
-		SaveSystem.load();
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				init();
+				addComponents();
+				setVisible(true);
+				SaveSystem.load();
+			}
+		});
 	}
 	private void init(){
 		setTitle("Movie Tracker");

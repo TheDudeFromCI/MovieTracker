@@ -11,15 +11,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 public class MovieInfo extends JFrame{
 	private final Movie movie;
 	public MovieInfo(Movie movie){
 		this.movie = movie;
-		init();
-		addComponents();
-		setVisible(true);
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				init();
+				addComponents();
+				setVisible(true);
+			}
+		});
 	}
 	private void init(){
 		setTitle(movie.title);
@@ -47,6 +52,8 @@ public class MovieInfo extends JFrame{
 		JButton btnAddToWheel = new JButton("Add To Wheel");
 		btnAddToWheel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				MovieWheel.addMovieToWheel(movie);
+				dispose();
 			}
 		});
 		btnAddToWheel.setFont(new Font("Dialog", Font.BOLD, 12));

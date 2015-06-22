@@ -62,7 +62,7 @@ public class MovieExplorer extends JPanel{
 	public static final float SCROLL_UPDATE_SPEED = 0.1f;
 	private static final int SEARCH_BAR_WIDTH = 200;
 	private static final int SEARCH_BAR_HEIGHT = 25;
-	private static final int WRAP_CHARACTERS = 20;
+	public static final int WRAP_CHARACTERS = 20;
 	public static MovieExplorer INSTANCE;
 	public final ArrayList<Movie> allMovies = new ArrayList();
 	private final ArrayList<FlyingMovie> flyingMovies = new ArrayList();
