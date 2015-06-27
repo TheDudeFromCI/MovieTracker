@@ -29,7 +29,7 @@ public class CompactBinaryFile extends File{
 	public boolean nextBit(){
 		if(!reading)throw new IllegalStateException("Not reading file!");
 		if(hasFinished())throw new IllegalStateException("Iteration already finished!");
-		boolean a = bitAt(binary[pos], subPos);
+		boolean a = CompactBinaryFile.bitAt(binary[pos], subPos);
 		subPos++;
 		if(subPos==8){
 			subPos=0;
@@ -42,7 +42,7 @@ public class CompactBinaryFile extends File{
 		if(bits<1)throw new IllegalArgumentException("Cannot return a number with less then 1 bit!");
 		if(bits>64)throw new IllegalArgumentException("Cannot return a number with more then 64 bits!");
 		long n = 0;
-		for(int i = bits-1; i>=0; i--)if(nextBit())n+=power(i);
+		for(int i = bits-1; i>=0; i--)if(nextBit())n+=CompactBinaryFile.power(i);
 		return n;
 	}
 	public void write(){
@@ -105,7 +105,7 @@ public class CompactBinaryFile extends File{
 		if(bits>64)throw new IllegalArgumentException("Cannot write a number with more then 64 bits!");
 		long a;
 		for(int i = bits-1; i>=0; i--){
-			a=power(i);
+			a=CompactBinaryFile.power(i);
 			addBit((number&a)==a);
 		}
 	}

@@ -28,11 +28,13 @@ public class SaveSystem{
 			int genre = (int)file.getNumber(5);
 			int rating = (int)file.getNumber(4);
 			int index = (int)file.getNumber(20);
-			Movie m = new Movie(title, Genre.values()[genre]);
+			Movie m = new Movie(title);
+			m.genre = Genre.values()[genre];
 			m.description = description;
 			m.additionalTags = additionalTags;
 			m.rating = Rating.values()[rating];
 			m.index = index;
+			m.updateSearchBar();
 			MovieExplorer.INSTANCE.allMovies.add(m);
 		}
 		file.stopReading();

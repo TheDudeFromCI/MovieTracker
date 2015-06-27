@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -37,7 +38,7 @@ public class MovieInfo extends JFrame{
 		getContentPane().setBackground(Color.DARK_GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{250, 250, 0};
-		gridBagLayout.rowHeights = new int[]{50, 20, 20, 0, 0};
+		gridBagLayout.rowHeights = new int[]{50, 0, 20, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
@@ -64,22 +65,38 @@ public class MovieInfo extends JFrame{
 		gbc_btnAddToWheel.gridx = 1;
 		gbc_btnAddToWheel.gridy = 0;
 		getContentPane().add(btnAddToWheel, gbc_btnAddToWheel);
+		JLabel lblRating = new JLabel("Rating: "+movie.rating);
+		lblRating.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblRating = new GridBagConstraints();
+		gbc_lblRating.insets = new Insets(5, 5, 5, 5);
+		gbc_lblRating.gridx = 0;
+		gbc_lblRating.gridy = 1;
+		getContentPane().add(lblRating, gbc_lblRating);
+		JButton btnDeleteMovie = new JButton("Delete Movie");
+		btnDeleteMovie.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int result = JOptionPane.showConfirmDialog(null, "Are you sure you wish to delete this movie?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(result==JOptionPane.YES_OPTION){
+					MovieExplorer.INSTANCE.removeMovie(movie);
+					dispose();
+				}
+			}
+		});
+		btnDeleteMovie.setForeground(Color.DARK_GRAY);
+		btnDeleteMovie.setBackground(Color.LIGHT_GRAY);
+		GridBagConstraints gbc_btnDeleteMovie = new GridBagConstraints();
+		gbc_btnDeleteMovie.insets = new Insets(5, 5, 5, 5);
+		gbc_btnDeleteMovie.gridx = 1;
+		gbc_btnDeleteMovie.gridy = 1;
+		getContentPane().add(btnDeleteMovie, gbc_btnDeleteMovie);
 		JLabel label = new JLabel("Genre: "+movie.genre);
 		label.setForeground(Color.WHITE);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.gridwidth = 2;
 		gbc_label.insets = new Insets(5, 5, 5, 5);
 		gbc_label.gridx = 0;
-		gbc_label.gridy = 1;
+		gbc_label.gridy = 2;
 		getContentPane().add(label, gbc_label);
-		JLabel lblRating = new JLabel("Rating: "+movie.rating);
-		lblRating.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblRating = new GridBagConstraints();
-		gbc_lblRating.gridwidth = 2;
-		gbc_lblRating.insets = new Insets(5, 5, 5, 5);
-		gbc_lblRating.gridx = 0;
-		gbc_lblRating.gridy = 2;
-		getContentPane().add(lblRating, gbc_lblRating);
 		JTextArea textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setTabSize(4);

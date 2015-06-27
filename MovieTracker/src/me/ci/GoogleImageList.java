@@ -37,7 +37,7 @@ public class GoogleImageList extends JPanel{
 	private boolean awaitingNewBatch;
 	private GoogleImageDownloader downloader;
 	private int searchIndex = Integer.MIN_VALUE;
-	public GoogleImageList(GoogleImageListListener listener){
+	public GoogleImageList(final GoogleImageListListener listener){
 		addMouseWheelListener(new MouseWheelListener(){
 			public void mouseWheelMoved(MouseWheelEvent e){
 				scrollPosition += e.getWheelRotation()*MovieExplorer.SCROLL_SENSITIVITY;

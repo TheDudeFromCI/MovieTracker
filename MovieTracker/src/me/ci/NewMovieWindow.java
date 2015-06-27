@@ -189,10 +189,13 @@ public class NewMovieWindow extends JFrame{
 		btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Movie m = new Movie(textField.getText(), (Genre)comboBox.getSelectedItem());
+				Movie m = new Movie(textField.getText());
+				m.genre = (Genre)comboBox.getSelectedItem();
 				m.coverImage = movieCover.getImage();
 				m.description = textArea.getText();
 				m.additionalTags = textArea_1.getText();
+				m.rating = (Rating)comboBox_1.getSelectedItem();
+				m.updateSearchBar();
 				MovieExplorer.INSTANCE.insertMovie(m);
 				dispose();
 				SaveSystem.save();

@@ -5,11 +5,12 @@ public class FlyingMovie{
 	public final Movie movie;
 	public double x, y;
 	public int goalX, goalY, movieListIndex;
+	public boolean markedForRemoval;
 	public FlyingMovie(Movie movie){
 		this.movie = movie;
 	}
 	public void update(){
-		x = (goalX-x)*MOVIE_SPEED+x;
-		y = (goalY-y)*MOVIE_SPEED+y;
+		x = (goalX-x)*FlyingMovie.MOVIE_SPEED+x;
+		y = (goalY-y)*FlyingMovie.MOVIE_SPEED+y;
 	}
 }

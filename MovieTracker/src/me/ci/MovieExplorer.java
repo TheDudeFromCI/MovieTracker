@@ -253,8 +253,17 @@ public class MovieExplorer extends JPanel{
 		maxScrollPosition = Math.max(idealHeight-getHeight(), 0);
 	}
 	private void updateElements(){
-		for(FlyingMovie f : flyingMovies)
-			f.update();
+		for(int i = 0; i<flyingMovies.size();){
+			flyingMovies.get(i).update();
+			if(flyingMovies.get(i).markedForRemoval){
+				if(Math.round(flyingMovies.get(i).x)==flyingMovies.get(i).goalX
+						&&Math.round(flyingMovies.get(i).y)==flyingMovies.get(i).goalY){
+					flyingMovies.remove(i);
+					continue;
+				}
+			}
+			i++;
+		}
 		if(scrollPosition>maxScrollPosition)scrollPosition = (maxScrollPosition-scrollPosition)*MovieExplorer.SCROLL_UPDATE_SPEED+scrollPosition;
 		if(scrollPosition<0)scrollPosition = (0-scrollPosition)*MovieExplorer.SCROLL_UPDATE_SPEED+scrollPosition;
 		repaint();
@@ -328,5 +337,18 @@ public class MovieExplorer extends JPanel{
 		f.x = -MovieExplorer.MOVIE_IMAGE_WIDTH;
 		f.y = -MovieExplorer.MOVIE_IMAGE_HEIGHT;
 		updateSearch(lastSearch);
+	}
+	public void removeMovie(Movie m){
+		allMovies.remove(m);
+		SaveSystem.save();
+		for(FlyingMovie f : flyingMovies)
+			if(f.movie==m){
+				f.goalX = -MovieExplorer.MOVIE_IMAGE_WIDTH;
+				f.goalY = -MovieExplorer.MOVIE_IMAGE_HEIGHT;
+				f.movieListIndex = -1;
+				f.markedForRemoval = true;
+				updateSearch(lastSearch);
+				return;
+			}
 	}
 }
