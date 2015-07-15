@@ -316,8 +316,20 @@ public class MovieExplorer extends JPanel{
 		if(y+MovieExplorer.MOVIE_IMAGE_HEIGHT+MovieExplorer.MOVIE_TITLE_HEIGHT<0)return true;
 		return false;
 	}
+	private int getNextOpenIndex(){
+		int index = 1;
+		while(true){
+			if(isIndexOpen(index))return index;
+			index++;
+		}
+	}
+	private boolean isIndexOpen(int index){
+		for(Movie m : allMovies)
+			if(m.index==index)return false;
+		return true;
+	}
 	public void insertMovie(Movie m){
-		m.index = allMovies.size()+1;
+		m.index = getNextOpenIndex();
 		int c;
 		for(int i = 0; i<allMovies.size(); i++){
 			c = allMovies.get(i).title.compareTo(m.title);
